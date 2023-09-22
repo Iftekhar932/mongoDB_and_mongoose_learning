@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background: gray">
+    <table border="10" cellspacing="10" cellpadding="1">
+      <thead>
+        MongoDB commands
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Number</b></td>
+          <td><b>Commands</b></td>
+          <td><b>Description</b></td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>cls</td>
+          <td>clears console</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>show dbs</td>
+          <td>Browses all the names of databases</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>show collections</td>
+          <td>Browses all the names of the collections inside the database</td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td>use yourDBname</td>
+          <td>
+            It uses the specified database, it creates database if there is not
+            one
+          </td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td>db.createCollection('yourCollectionName')</td>
+          <td>
+            Creates collection in the database that's being used
+            <p>
+              example - db.createCollection('teachers',
+              {capped:true,size:10000000,max:100},{autoIndexId:false})
+              <br />
+              Explanation: If "capped" set to true we have to specify size, here
+              is 10 megabyte of space in bytes for teacher field. "max" is how
+              many documents can we store limited by number and 'autoIndexId'
+              will set index automatically if set to true although it has to be
+              specified separately as given above
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>db.dropDatabase()</td>
+          <td>Drops the database that's being used</td>
+        </tr>
+
+        <tr>
+          <td>7</td>
+          <td>db.yourCollectionName.insertOne()</td>
+          <td>
+            <p>
+              Inserts one document
+              <br />
+              example - db.myCollection.insertOne({name:'myName'})
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>db.yourCollectionName.insertMany()</td>
+          <td>
+            <p>
+              Inserts multiple documents. Takes an array.
+              <br />
+              example -
+              db.myCollection.insertMany([{name:'myName'},{name:'myName2'},{name:'myName3'}])
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>db.yourCollection.find()</td>
+          <td>
+            Browses all the documents of the database that is being used. <br />
+            It has 2 parameters. Those are query and projection. Here's how it
+            works: <br />
+            db.yourCollection.find({},{name:true,_id:false});<br />
+            It'll return only names with the object id if "_id:false" is removed
+          </td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>db.yourCOllection.find().sort()</td>
+          <td>
+            Can sort the browsed data.
+            <p>
+              Example - db.yourCOllection.find().sort({name:-1}) <br />
+              In this example it'll look for name or any specified field in the
+              documents and will return them in negative order(z-a). <br />
+              If it is one then (A-Z)
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>11</td>
+          <td>db.yourCOllection.find().limit()</td>
+          <td>
+            Limits the returned documents number by the value provided. <br />
+            <p>
+              example - db.yourCOllection.find().sort({name:-1}).limit(5) <br />
+              NOTE: we can chain "sort()" and other methods too
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>12</td>
+          <td>db.yourcollection.updateOne(filter,update)</td>
+          <td>
+            <p>
+              updates a document selected by a field. It takes 2 parameters.
+              Filter and update
+              <br />
+              example:
+              db.yourcollection.updateOne({name:'john'},{$set:{dateOfBirth:12-5-1235}})
+              <br />
+              db.yourcollection.updateOne(name:'john'},{$unset:{fulltime:}})
+              NOTE: filter to search it with field value and update is what to
+              update with which property and value. If there is no field like
+              that it'll add one
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>13</td>
+          <td>db.yourcollection.updateMany(filter,update)</td>
+          <td>
+            Same as updateOne but it updates multiple documents at once <br />
+            <p>
+              example:
+              db.yourcollection.updateOne({paymentDue:true},{$unset:{studentShip:true}})
+              <br />
+              db.stdInfo.updateMany({age:23},{$set:{courses:["Japanese","bangla","ongko","ingrejy","arby","farsi","urdu"]}})
+              <br />
+              db.stdInfo.updateMany({},{$unset:{courses:' '}}) This example is
+              for deleting a field from every document if not wanted NOTE:First
+              argument remains blank if nothing to search for
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>$set</td>
+          <td>To set a field with value</td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td>$unset</td>
+          <td>unset a field from a document or every document</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td>$exists</td>
+          <td>
+            Checks if a field exists with boolean value <br />
+            <p>
+              example -
+              db.yourcollection.updateOne({age:$exists:{true}},{age:''})
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td>db.yourcollection.deleteMany()</td>
+          <td>
+            same syntax as updateOne,findOne or many <br />
+            <p>example - db.stdInfo.deleteMany({gpa:{$exists:false}})</p>
+          </td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>
+            Comparison operators
+            <br />
+            $ne,$lte,$gte,$gt,$lt - not equals, less than, greater than...You
+            get the point I.G. 😉
+          </td>
+          <td>
+            Find documents that doesn't match this criteria.
+            <p>
+              example - db.yourcollection.find({age:{$ne:21}}) <br />
+              db.yourcollection.find({age:{$gte:21, $lte:30}}) - sets range like
+              20 >=30
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td>/ $nin - in, not in</td>
+          <td>
+            This one takes an array and if the elements of the array matches
+            it'll return the document, for $nin it will return the documents
+            that doesn't match the elements. Iterating an array is simple with
+            this one
+            <p>
+              example -
+              db.yourCollectionName.find({name:{$in:["Faraz","Ahmed","Jane
+              Smith"]}})
+              <br />
+              db.yourCollectionName.find({name:{$nin:["Faraz","Ahmed","Jane
+              Smith"]}})
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>
+            $and / $or
+            <br />
+            $and needs both of the condition to be true and $or needs one of
+            them to be true to return documents
+          </td>
+          <td>
+            example - db.stdInfo.find({$or:[{name:"Farah"},{age:{$lte:22}}]})
+          </td>
+        </tr>
+        <tr>
+          <td>21</td>
+          <td>$nor <br /></td>
+          <td>
+            Given conditions has to be false, if one of them is false it'll
+            return the document. Similarity with or is it needs only one of the
+            criteria to be fulfilled. $nor an or is here
+            <p>
+              example -
+              db.stdInfo.find({$nor:[{courses:'english',courses:'physics'}]})
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>22</td>
+          <td>count()</td>
+          <td>
+            As the name suggests....it returns count of returned documents
+            <p>
+              example -
+              db.stdInfo.find({$nor:[{courses:'english',courses:'physics'}]}).count()
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>23</td>
+
+          <td>$not</td>
+          <td>
+            If the given condition doesn't match it'll return the document
+            <p>example - db.stdInfo.find({courses:{$not:{age:{lte:25}}}})</p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>24</td>
+          <td>indexes</td>
+          <td>
+            An index allows a quick look up of a field, it slows down crud
+            operations,<br />
+            it takes up more memory,so have to use wisely <br />
+            It stores data as b-tree. <br />
+            If search is mostly used and not updates then it causes less hassle.
+            <br />
+            It is helpful for thousands of data. Because linear search will take
+            a lot of time for big amount of data
+          </td>
+        </tr>
+        <tr>
+          <td>25</td>
+          <td>db.collectionName.createIndex()</td>
+          <td>
+            example - db.collectionName.createIndex({name:1}) - ascending order,
+            descending would be -1
+          </td>
+        </tr>
+        <tr>
+          <td>26</td>
+          <td>db.yourcollection.getIndexes()</td>
+          <td>to get the collections by index if created with index</td>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td>db.yourcollection.explain()</td>
+          <td>
+            The explain command provides information on the execution of the
+            following commands
+            <p>example - db.yourcollection.explain('executionStats')</p>
+          </td>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td>db.yourcollection.DropIndex()</td>
+          <td>Deletes a document</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
