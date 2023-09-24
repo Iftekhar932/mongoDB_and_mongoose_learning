@@ -16,9 +16,8 @@ app.get("/", (req, res) => {
       createdAt: new Date(),
       description: "This is how you write a description",
     },
-  ];
-18:27
-res.render("articles/index", { articles });
+  ];23"32
+  res.render("articles/new", { articles });
 });
 
 app.listen(PORT, (req, res) => {
