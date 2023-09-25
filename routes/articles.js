@@ -2,6 +2,8 @@ const express = require("express");
 const Article = require("./../models/article.js");
 const router = express.Router();
 
+// router.get("/", (req, res) => {});
+
 router.get("/new", (req, res) =>
   res.render("articles/new", { article: new Article() })
 );
@@ -22,9 +24,10 @@ router.post("/", async (req, res) => {
     description: req.body.description,
     markdown: req.body.markdown,
   });
+  console.log(req.body.title, req.body.description, req.body.markdown);
   article = await article.save();
   res.redirect(`/articles/${article.id}`);
-  res.render("articles/new", { article: article });
+  // res.render("articles/new", { article: article });
 });
 
 module.exports = router;

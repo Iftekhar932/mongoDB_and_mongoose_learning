@@ -9,7 +9,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
   },
   markdown: { type: String },
-  createdAt: { type: Date, default: Date.now() },
+  createdAt: { type: Date, default: () => new Date() },
 });
 
 module.exports = mongoose.model("Article", articleSchema);
